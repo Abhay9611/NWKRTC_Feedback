@@ -83,6 +83,41 @@
         .rating-stars label:hover {
             color: #ffc107;
         }
+        .verification-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .verification-status {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .verification-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .verification-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .verification-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .email-input-group {
+            display: flex;
+            gap: 10px;
+        }
+        .email-input-group input {
+            flex: 1;
+        }
+        .verification-code-group {
+            display: none;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -93,80 +128,101 @@
         <form id="feedbackForm">
             <input type="hidden" id="depotCode" name="depot_code">
             
-            <label for="email">Email / ಇಮೇಲ್ *</label>
-            <input type="email" name="email" id="email" required />
-
-            <label for="name">Name / ಹೆಸರು *</label>
-            <input type="text" name="name" id="name" required />
-
-            <label>Gender / ಲಿಂಗ *</label>
-            <div class="radio-group">
-                <div class="radio-item">
-                    <input type="radio" name="gender" value="male" id="male" required />
-                    <label for="male">Male / ಗಂಡು</label>
+            <div class="verification-section">
+                <label for="email">Email / ಇಮೇಲ್ *</label>
+                <div class="email-input-group">
+                    <input type="email" name="email" id="email" required />
+                    <button type="button" id="verifyEmailBtn" class="button" style="width: auto; padding: 8px 15px;">
+                        Verify / ಪರಿಶೀಲಿಸಿ
+                    </button>
                 </div>
-                <div class="radio-item">
-                    <input type="radio" name="gender" value="female" id="female" />
-                    <label for="female">Female / ಹೆಣ್ಣು</label>
+                <div id="verificationStatus" class="verification-status"></div>
+                <div class="verification-code-group" id="verificationCodeGroup">
+                    <label for="verificationCode">Verification Code / ಪರಿಶೀಲನೆ ಕೋಡ್ *</label>
+                    <div class="email-input-group">
+                        <input type="text" id="verificationCode" name="verificationCode" required />
+                        <button type="button" id="submitVerificationBtn" class="button" style="width: auto; padding: 8px 15px;">
+                            Submit Code / ಕೋಡ್ ಸಲ್ಲಿಸಿ
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <label for="phone">Phone No / ದೂರವಾಣಿ ಸಂಖ್ಯೆ (Optional)</label>
-            <input type="tel" name="phone" id="phone" />
+            <div id="formFields" style="display: none;">
+                <label for="name">Name / ಹೆಸರು *</label>
+                <input type="text" name="name" id="name" required />
 
-            <label for="toiletCleanliness">Toilet Cleanliness / ಶೌಚಾಲಯದ ಸ್ವಚ್ಛತೆ *</label>
-            <select name="toiletCleanliness" id="toiletCleanliness" required>
-                <option value="">Select rating</option>
-                <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
-                <option value="poor">Poor/ಕಳಪೆ</option>
-                <option value="average">Average/ಸಾಧಾರಣ</option>
-                <option value="good">Good/ಉತ್ತಮ</option>
-                <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
-            </select>
+                <label>Gender / ಲಿಂಗ *</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="gender" value="male" id="male" required />
+                        <label for="male">Male / ಗಂಡು</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="gender" value="female" id="female" />
+                        <label for="female">Female / ಹೆಣ್ಣು</label>
+                    </div>
+                </div>
 
-            <label for="busStandCleanliness">Bus Stand Cleanliness / ಬಸ್‌ ನಿಲ್ದಾಣದ ಸ್ವಚ್ಛತೆ *</label>
-            <select name="busStandCleanliness" id="busStandCleanliness" required>
-                <option value="">Select rating</option>
-                <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
-                <option value="poor">Poor/ಕಳಪೆ</option>
-                <option value="average">Average/ಸಾಧಾರಣ</option>
-                <option value="good">Good/ಉತ್ತಮ</option>
-                <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
-            </select>
+                <label for="phone">Phone No / ದೂರವಾಣಿ ಸಂಖ್ಯೆ (Optional)</label>
+                <input type="tel" name="phone" id="phone" />
 
-            <label for="drinkingWater">Drinking Water Facility / ಕುಡಿಯುವ ನೀರಿನ ವ್ಯವಸ್ಥೆ *</label>
-            <select name="drinkingWater" id="drinkingWater" required>
-                <option value="">Select option</option>
-                <option value="not_available">Not Available / ಇರುವುದಿಲ್ಲ</option>
-                <option value="unsatisfactory">Unsatisfactory / ಅತೃಪ್ತಿಕರ</option>
-                <option value="satisfactory">Satisfactory / ತೃಪ್ತಿಕರ</option>
-            </select>
+                <label for="toiletCleanliness">Toilet Cleanliness / ಶೌಚಾಲಯದ ಸ್ವಚ್ಛತೆ *</label>
+                <select name="toiletCleanliness" id="toiletCleanliness" required>
+                    <option value="">Select rating</option>
+                    <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
+                    <option value="poor">Poor/ಕಳಪೆ</option>
+                    <option value="average">Average/ಸಾಧಾರಣ</option>
+                    <option value="good">Good/ಉತ್ತಮ</option>
+                    <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
+                </select>
 
-            <label for="toiletFee">Fee Collected for Usage of Toilets / ಶೌಚಾಲಯ ಬಳಕೆಗೆ ಶುಲ್ಕ *</label>
-            <select name="toiletFee" id="toiletFee" required>
-                <option value="">Select option</option>
-                <option value="prescribed">Prescribed Fee (Rs. 5) / ನಿಗದಿತ ಶುಲ್ಕ</option>
-                <option value="more">Charged More / ಹೆಚ್ಚಿನ ಶುಲ್ಕ</option>
-            </select>
+                <label for="busStandCleanliness">Bus Stand Cleanliness / ಬಸ್‌ ನಿಲ್ದಾಣದ ಸ್ವಚ್ಛತೆ *</label>
+                <select name="busStandCleanliness" id="busStandCleanliness" required>
+                    <option value="">Select rating</option>
+                    <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
+                    <option value="poor">Poor/ಕಳಪೆ</option>
+                    <option value="average">Average/ಸಾಧಾರಣ</option>
+                    <option value="good">Good/ಉತ್ತಮ</option>
+                    <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
+                </select>
 
-            <label>Overall Rating / ಒಟ್ಟಾರೆ ಶ್ರೇಣಿ *</label>
-            <div class="rating-stars">
-                <input type="radio" name="overallRating" value="5" id="star5" required>
-                <label for="star5"><i class="bi bi-star-fill"></i></label>
-                <input type="radio" name="overallRating" value="4" id="star4">
-                <label for="star4"><i class="bi bi-star-fill"></i></label>
-                <input type="radio" name="overallRating" value="3" id="star3">
-                <label for="star3"><i class="bi bi-star-fill"></i></label>
-                <input type="radio" name="overallRating" value="2" id="star2">
-                <label for="star2"><i class="bi bi-star-fill"></i></label>
-                <input type="radio" name="overallRating" value="1" id="star1">
-                <label for="star1"><i class="bi bi-star-fill"></i></label>
+                <label for="drinkingWater">Drinking Water Facility / ಕುಡಿಯುವ ನೀರಿನ ವ್ಯವಸ್ಥೆ *</label>
+                <select name="drinkingWater" id="drinkingWater" required>
+                    <option value="">Select option</option>
+                    <option value="not_available">Not Available / ಇರುವುದಿಲ್ಲ</option>
+                    <option value="unsatisfactory">Unsatisfactory / ಅತೃಪ್ತಿಕರ</option>
+                    <option value="satisfactory">Satisfactory / ತೃಪ್ತಿಕರ</option>
+                </select>
+
+                <label for="toiletFee">Fee Collected for Usage of Toilets / ಶೌಚಾಲಯ ಬಳಕೆಗೆ ಶುಲ್ಕ *</label>
+                <select name="toiletFee" id="toiletFee" required>
+                    <option value="">Select option</option>
+                    <option value="prescribed">Prescribed Fee (Rs. 5) / ನಿಗದಿತ ಶುಲ್ಕ</option>
+                    <option value="more">Charged More / ಹೆಚ್ಚಿನ ಶುಲ್ಕ</option>
+                </select>
+
+                <label>Overall Rating / ಒಟ್ಟಾರೆ ಶ್ರೇಣಿ *</label>
+                <div class="rating-stars">
+                    <input type="radio" name="overallRating" value="5" id="star5" required>
+                    <label for="star5"><i class="bi bi-star-fill"></i></label>
+                    <input type="radio" name="overallRating" value="4" id="star4">
+                    <label for="star4"><i class="bi bi-star-fill"></i></label>
+                    <input type="radio" name="overallRating" value="3" id="star3">
+                    <label for="star3"><i class="bi bi-star-fill"></i></label>
+                    <input type="radio" name="overallRating" value="2" id="star2">
+                    <label for="star2"><i class="bi bi-star-fill"></i></label>
+                    <input type="radio" name="overallRating" value="1" id="star1">
+                    <label for="star1"><i class="bi bi-star-fill"></i></label>
+                </div>
+
+                <label for="otherComments">Other Comments / ಇತರೆ ಅನಿಸಿಕೆಗಳು (Optional)</label>
+                <textarea name="otherComments" id="otherComments" rows="4"></textarea>
             </div>
 
-            <label for="otherComments">Other Comments / ಇತರೆ ಅನಿಸಿಕೆಗಳು (Optional)</label>
-            <textarea name="otherComments" id="otherComments" rows="4"></textarea>
-
-            <button type="submit" class="button">Submit Feedback / ಪ್ರತಿಕ್ರಿಯೆ ಸಲ್ಲಿಸಿ</button>
+            <button type="submit" class="button" id="submitBtn" style="display: none;">
+                Submit Feedback / ಪ್ರತಿಕ್ರಿಯೆ ಸಲ್ಲಿಸಿ
+            </button>
         </form>
     </div>
 
@@ -245,6 +301,74 @@
             document.getElementById('depotCode').value = depotCode;
         } else {
             document.getElementById('depotName').textContent = 'Invalid Depot';
+        }
+
+        // Email verification functionality
+        const verifyEmailBtn = document.getElementById('verifyEmailBtn');
+        const submitVerificationBtn = document.getElementById('submitVerificationBtn');
+        const verificationStatus = document.getElementById('verificationStatus');
+        const verificationCodeGroup = document.getElementById('verificationCodeGroup');
+        const formFields = document.getElementById('formFields');
+        const submitBtn = document.getElementById('submitBtn');
+        let verificationCode = '';
+
+        verifyEmailBtn.addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            if (!email) {
+                showVerificationStatus('Please enter an email address', 'error');
+                return;
+            }
+
+            try {
+                // Send verification code
+                const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        service_id: 'YOUR_SERVICE_ID',
+                        template_id: 'YOUR_TEMPLATE_ID',
+                        user_id: 'YOUR_USER_ID',
+                        template_params: {
+                            to_email: email,
+                            verification_code: generateVerificationCode(),
+                        }
+                    })
+                });
+
+                if (response.ok) {
+                    showVerificationStatus('Verification code sent! Please check your email.', 'pending');
+                    verificationCodeGroup.style.display = 'block';
+                } else {
+                    showVerificationStatus('Failed to send verification code. Please try again.', 'error');
+                }
+            } catch (error) {
+                showVerificationStatus('An error occurred. Please try again.', 'error');
+            }
+        });
+
+        submitVerificationBtn.addEventListener('click', () => {
+            const enteredCode = document.getElementById('verificationCode').value;
+            if (enteredCode === verificationCode) {
+                showVerificationStatus('Email verified successfully!', 'success');
+                formFields.style.display = 'block';
+                submitBtn.style.display = 'block';
+                verificationCodeGroup.style.display = 'none';
+            } else {
+                showVerificationStatus('Invalid verification code. Please try again.', 'error');
+            }
+        });
+
+        function showVerificationStatus(message, type) {
+            verificationStatus.textContent = message;
+            verificationStatus.className = 'verification-status verification-' + type;
+            verificationStatus.style.display = 'block';
+        }
+
+        function generateVerificationCode() {
+            verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+            return verificationCode;
         }
 
         // Handle form submission
