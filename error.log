@@ -1,0 +1,77 @@
+[25-Apr-2025 16:44:21 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 16:44:21 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 16:45:22 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 16:45:22 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 16:45:27 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 16:45:27 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:40:31 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:40:31 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:42:24 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:42:24 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:52:10 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:52:10 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:52:41 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:52:41 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:53:58 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:53:58 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:53:59 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:53:59 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:53:59 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:53:59 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:54:04 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:54:04 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:58:00 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:58:00 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:58:06 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:58:06 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:58:29 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:58:29 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:59:55 Europe/Berlin] PHP Warning:  require(vendor/autoload.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 19:59:55 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\feedback\generate_qr.php:3
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\feedback\generate_qr.php on line 3
+[25-Apr-2025 20:02:01 Europe/Berlin] PHP Warning:  file_get_contents(https://chart.googleapis.com/chart?cht=qr&amp;chs=300x300&amp;chl=http%3A%2F%2Flocalhost%2Ffeedback%2Fscan.php%3Fdepot%3DBEL_CBT): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in C:\xampp\htdocs\feedback\generate_qr.php on line 77
