@@ -75,11 +75,14 @@
 
         .banner {
             width: 100%;
-            height: 360px;
+            height: auto;
+            min-height: 200px;
+            max-height: 360px;
             position: relative;
             margin-bottom: 60px;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            aspect-ratio: 16/9;
         }
 
         .banner-image {
@@ -115,20 +118,21 @@
             margin: 0 auto;
             position: relative;
             z-index: 3;
+            padding: 0 1rem;
         }
 
         .banner-text {
-            font-size: 3rem;
+            font-size: clamp(1.5rem, 5vw, 3rem);
             font-weight: bold;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .banner-subtext {
-            font-size: 2rem;
+            font-size: clamp(1rem, 3vw, 2rem);
             text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .card {
@@ -407,8 +411,17 @@
 
         @media (max-width: 768px) {
             .banner {
-                height: 260px;
+                min-height: 180px;
+                max-height: 260px;
                 margin-bottom: 40px;
+            }
+
+            .banner-overlay {
+                padding: 1.5rem;
+            }
+
+            .banner-content {
+                padding: 0 0.5rem;
             }
 
             .card {
