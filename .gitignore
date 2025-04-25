@@ -1,0 +1,29 @@
+# PHP error logs
+error.log
+*.log
+
+# Configuration files with sensitive data
+config.php
+
+# Composer dependencies
+/vendor/
+composer.lock
+
+# Environment files
+.env
+.env.*
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db 

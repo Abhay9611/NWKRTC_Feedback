@@ -66,7 +66,7 @@ $depots = [
 
 // Function to generate QR code URL using Google Charts API
 function generateQRCode($depotCode) {
-    $url = "http://localhost/feedback/scan.php?depot=" . $depotCode;
+    $url = "https://abhay9611.github.io/NWKRTC_Feedback/feedback.html?depot=" . $depotCode;
     return "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urlencode($url);
 }
 

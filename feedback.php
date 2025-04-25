@@ -2,18 +2,31 @@
 require_once 'config.php';
 session_start();
 
-// Check if depot information is set in session
-if (!isset($_SESSION['depot_code']) || !isset($_SESSION['depot_name'])) {
-    $_SESSION['error'] = 'Please scan a valid QR code to access the feedback form.';
-    header('Location: index.php');
-    exit;
+// Get depot code from URL
+$depotCode = $_GET['depot'] ?? '';
+
+// Validate depot code
+if (empty($depotCode)) {
+    die("Invalid depot code");
 }
 
-$depotCode = $_SESSION['depot_code'];
-$depotName = $_SESSION['depot_name'];
+// Get depot name from database
+$stmt = $conn->prepare("SELECT name FROM depots WHERE code = ?");
+$stmt->bind_param("s", $depotCode);
+$stmt->execute();
+$result = $stmt->get_result();
 
-// Check if user is verified
-$isVerified = isset($_SESSION['user_id']) && $_SESSION['user_id'];
+if ($result->num_rows === 0) {
+    die("Depot not found");
+}
+
+$depot = $result->fetch_assoc();
+$depotName = $depot['name'];
+
+// Display success/error messages
+$success = $_SESSION['success'] ?? '';
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['success'], $_SESSION['error']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,128 +128,62 @@ $isVerified = isset($_SESSION['user_id']) && $_SESSION['user_id'];
 <body>
     <div class="container">
         <div class="feedback-card">
-            <?php if (isset($_SESSION['success'])): ?>
+            <?php if ($success): ?>
                 <div class="alert alert-success">
                     <?php 
-                    echo $_SESSION['success'];
-                    unset($_SESSION['success']);
+                    echo $success;
                     ?>
                 </div>
             <?php endif; ?>
 
-            <?php if (isset($_SESSION['error'])): ?>
+            <?php if ($error): ?>
                 <div class="alert alert-danger">
                     <?php 
-                    echo $_SESSION['error'];
-                    unset($_SESSION['error']);
+                    echo $error;
                     ?>
                 </div>
             <?php endif; ?>
 
             <h2 class="depot-header">
                 <?php echo htmlspecialchars($depotName); ?> Feedback Form
-                <?php if ($isVerified): ?>
-                    <span class="verification-badge">
-                        <i class="bi bi-check-circle-fill"></i>
-                        Verified
-                    </span>
-                <?php endif; ?>
             </h2>
 
             <form id="feedbackForm" action="submit_feedback.php" method="POST">
-                <input type="hidden" name="depotCode" value="<?php echo htmlspecialchars($depotCode); ?>" />
+                <input type="hidden" name="depot_code" value="<?php echo htmlspecialchars($depotCode); ?>" />
                 
-                <?php if (!$isVerified): ?>
-                    <div class="mb-4">
-                        <label for="email" class="form-label">Email / ಇಮೇಲ್ *</label>
-                        <input type="email" class="form-control" id="email" name="email" required />
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="name" class="form-label">Name / ಹೆಸರು *</label>
-                        <input type="text" class="form-control" id="name" name="name" required />
-                    </div>
-                <?php endif; ?>
-
                 <div class="mb-4">
-                    <label class="form-label">Gender / ಲಿಂಗ *</label>
-                    <div class="d-flex gap-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" value="male" id="male" required />
-                            <label class="form-check-label" for="male">Male / ಗಂಡು</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" value="female" id="female" />
-                            <label class="form-check-label" for="female">Female / ಹೆಣ್ಣು</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-4">
-                    <label for="phone" class="form-label">Phone No / ದೂರವಾಣಿ ಸಂಖ್ಯೆ (Optional)</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" />
-                </div>
-
-                <div class="mb-4">
-                    <label for="toiletCleanliness" class="form-label">Toilet Cleanliness / ಶೌಚಾಲಯದ ಸ್ವಚ್ಛತೆ *</label>
-                    <select class="form-select" id="toiletCleanliness" name="toiletCleanliness" required>
-                        <option value="">Select rating</option>
-                        <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
-                        <option value="poor">Poor/ಕಳಪೆ</option>
-                        <option value="average">Average/ಸಾಧಾರಣ</option>
-                        <option value="good">Good/ಉತ್ತಮ</option>
-                        <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
-                    </select>
-                </div>
-
-                <div class="mb-4">
-                    <label for="busStandCleanliness" class="form-label">Bus Stand Cleanliness / ಬಸ್‌ ನಿಲ್ದಾಣದ ಸ್ವಚ್ಛತೆ *</label>
-                    <select class="form-select" id="busStandCleanliness" name="busStandCleanliness" required>
-                        <option value="">Select rating</option>
-                        <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
-                        <option value="poor">Poor/ಕಳಪೆ</option>
-                        <option value="average">Average/ಸಾಧಾರಣ</option>
-                        <option value="good">Good/ಉತ್ತಮ</option>
-                        <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
-                    </select>
-                </div>
-
-                <div class="mb-4">
-                    <label for="drinkingWater" class="form-label">Drinking Water Facility / ಕುಡಿಯುವ ನೀರಿನ ವ್ಯವಸ್ಥೆ *</label>
-                    <select class="form-select" id="drinkingWater" name="drinkingWater" required>
-                        <option value="">Select option</option>
-                        <option value="not_available">Not Available / ಇರುವುದಿಲ್ಲ</option>
-                        <option value="unsatisfactory">Unsatisfactory / ಅತೃಪ್ತಿಕರ</option>
-                        <option value="satisfactory">Satisfactory / ತೃಪ್ತಿಕರ</option>
-                    </select>
-                </div>
-
-                <div class="mb-4">
-                    <label for="toiletFee" class="form-label">Fee Collected for Usage of Toilets / ಶೌಚಾಲಯ ಬಳಕೆಗೆ ಶುಲ್ಕ *</label>
-                    <select class="form-select" id="toiletFee" name="toiletFee" required>
-                        <option value="">Select option</option>
-                        <option value="prescribed">Prescribed Fee (Rs. 5) / ನಿಗದಿತ ಶುಲ್ಕ</option>
-                        <option value="more">Charged More / ಹೆಚ್ಚಿನ ಶುಲ್ಕ</option>
-                    </select>
-                </div>
-
-                <div class="mb-4">
-                    <label class="form-label">Overall Rating / ಒಟ್ಟಾರೆ ಶ್ರೇಣಿ *</label>
+                    <label for="rating" class="form-label">Overall Rating</label>
                     <div class="rating-stars">
-                        <?php for ($i = 1; $i <= 5; $i++): ?>
-                            <input type="radio" name="overallRating" value="<?php echo $i; ?>" id="rating<?php echo $i; ?>" required />
-                            <label for="rating<?php echo $i; ?>"><i class="bi bi-star-fill"></i></label>
-                        <?php endfor; ?>
+                        <input type="radio" name="rating" value="5" id="star5" required>
+                        <label for="star5"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="rating" value="4" id="star4">
+                        <label for="star4"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="rating" value="3" id="star3">
+                        <label for="star3"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="rating" value="2" id="star2">
+                        <label for="star2"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="rating" value="1" id="star1">
+                        <label for="star1"><i class="bi bi-star-fill"></i></label>
                     </div>
                 </div>
 
                 <div class="mb-4">
-                    <label for="otherComments" class="form-label">Other Comments / ಇತರೆ ಅನಿಸಿಕೆಗಳು (Optional)</label>
-                    <textarea class="form-control" id="otherComments" name="otherComments" rows="4"></textarea>
+                    <label for="feedback" class="form-label">Your Feedback</label>
+                    <textarea class="form-control" id="feedback" name="feedback" rows="4" required></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label for="name" class="form-label">Name (Optional)</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+
+                <div class="mb-4">
+                    <label for="contact" class="form-label">Contact Number (Optional)</label>
+                    <input type="tel" class="form-control" id="contact" name="contact">
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-submit w-100">
-                    Submit Feedback / ಪ್ರತಿಕ್ರಿಯೆ ಸಲ್ಲಿಸಿ
+                    Submit Feedback
                 </button>
             </form>
         </div>

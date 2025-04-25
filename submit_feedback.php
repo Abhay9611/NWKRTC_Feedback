@@ -49,17 +49,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $conn = getDBConnection();
         
         // Get form data
-        $depotCode = $_POST['depotCode'];
-        $email = $_POST['email'] ?? null;
-        $name = $_POST['name'] ?? null;
-        $gender = $_POST['gender'];
-        $phone = $_POST['phone'];
-        $toiletCleanliness = $_POST['toiletCleanliness'];
-        $busStandCleanliness = $_POST['busStandCleanliness'];
-        $drinkingWater = $_POST['drinkingWater'];
-        $toiletFee = $_POST['toiletFee'];
-        $overallRating = $_POST['overallRating'];
-        $otherComments = $_POST['otherComments'];
+        $depotCode = $_POST['depot_code'] ?? '';
+        $rating = $_POST['rating'] ?? '';
+        $feedback = $_POST['feedback'] ?? '';
+        $name = $_POST['name'] ?? '';
+        $contact = $_POST['contact'] ?? '';
+        
+        // Validate required fields
+        if (empty($depotCode) || empty($rating) || empty($feedback)) {
+            die("Missing required fields");
+        }
+        
+        // Sanitize inputs
+        $depotCode = $conn->real_escape_string($depotCode);
+        $rating = (int)$rating;
+        $feedback = $conn->real_escape_string($feedback);
+        $name = $conn->real_escape_string($name);
+        $contact = $conn->real_escape_string($contact);
         
         // Check if user is already verified
         if (isset($_SESSION['user_id'])) {
@@ -70,11 +76,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             // Insert user data
             $stmt = $conn->prepare("INSERT INTO users (email, name, phone, verification_token) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$email, $name, $phone, $token]);
+            $stmt->execute([$contact, $name, $contact, $token]);
             $userId = $conn->lastInsertId();
             
             // Send verification email
-            if (!sendVerificationEmail($email, $name, $token)) {
+            if (!sendVerificationEmail($contact, $name, $token)) {
                 throw new Exception("Failed to send verification email");
             }
             
@@ -84,26 +90,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         // Insert feedback
-        $stmt = $conn->prepare("
-            INSERT INTO feedback (
-                user_id, depot_code, toilet_cleanliness, bus_stand_cleanliness,
-                drinking_water, toilet_fee, overall_rating, other_comments
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+        $stmt = $conn->prepare("INSERT INTO feedback (depot_code, rating, feedback, name, contact, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
+        $stmt->bind_param("sisss", $depotCode, $rating, $feedback, $name, $contact);
         
-        $stmt->execute([
-            $userId, $depotCode, $toiletCleanliness, $busStandCleanliness,
-            $drinkingWater, $toiletFee, $overallRating, $otherComments
-        ]);
-        
-        $_SESSION['success'] = "Thank you for your feedback! / ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಗೆ ಧನ್ಯವಾದಗಳು!";
+        if ($stmt->execute()) {
+            $_SESSION['success'] = "Thank you for your feedback!";
+        } else {
+            $_SESSION['error'] = "Error submitting feedback. Please try again.";
+        }
         
     } catch (Exception $e) {
         error_log("Feedback submission error: " . $e->getMessage());
         $_SESSION['error'] = "An error occurred. Please try again later.";
     }
     
-    header("Location: feedback.php?depot=" . urlencode($depotCode));
+    header("Location: scan.php?depot=" . urlencode($depotCode));
     exit;
 }
 ?> 
