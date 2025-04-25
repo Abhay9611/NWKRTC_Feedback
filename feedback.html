@@ -8,16 +8,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <style>
         :root {
-            --nwkrtc-blue: #0077be;
-            --nwkrtc-yellow: #ffd700;
-            --header-bg: linear-gradient(135deg, #0077be, #005c91);
+            --nwkrtc-blue: #0052cc;
+            --nwkrtc-yellow: #ffab00;
+            --header-bg: linear-gradient(135deg, #0052cc, #0747a6);
+            --text-primary: #172b4d;
+            --text-secondary: #42526e;
+            --border-color: #dfe1e6;
+            --bg-light: #f4f5f7;
+            --success: #00875a;
+            --error: #de350b;
+            --warning: #ff991f;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-light);
             margin: 0;
             padding: 0;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
 
         .header {
@@ -66,11 +75,22 @@
 
         .banner {
             width: 100%;
-            height: 200px;
-            background-image: url('https://raw.githubusercontent.com/Abhay9611/NWKRTC_Feedback/main/assets/banner.jpg');
-            background-size: cover;
-            background-position: center;
+            height: 360px;
             position: relative;
+            margin-bottom: 60px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
         }
 
         .banner-overlay {
@@ -79,205 +99,367 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6));
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             color: white;
+            padding: 2rem;
+            z-index: 2;
+        }
+
+        .banner-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 3;
         }
 
         .banner-text {
-            font-size: 2rem;
+            font-size: 3rem;
             font-weight: bold;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 1.5rem;
+        }
+
+        .banner-subtext {
+            font-size: 2rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            margin-bottom: 2rem;
         }
 
         .card {
             background: white;
             max-width: 800px;
-            margin: -50px auto 2rem;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin: -50px auto 3rem;
+            padding: 2.5rem 3rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(9, 30, 66, 0.13);
             position: relative;
             border: none;
+            z-index: 10;
+        }
+
+        .card h2 {
+            color: var(--text-primary);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            text-align: center;
+        }
+
+        .card h4 {
+            color: var(--text-secondary);
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            font-weight: 500;
+            text-align: center;
         }
 
         .verification-section {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-            border: 1px solid #e9ecef;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(9, 30, 66, 0.1);
         }
 
-        .email-input-group {
-            display: flex;
-            gap: 10px;
+        .form-group {
+            margin-bottom: 2rem;
         }
 
-        .email-input-group input {
-            flex: 1;
-            padding: 0.75rem;
-            border: 1px solid #dee2e6;
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
+        }
+
+        .form-control, .form-select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border-color);
             border-radius: 8px;
+            transition: all 0.2s ease;
             font-size: 1rem;
+            color: var(--text-primary);
+            background-color: #fff;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--nwkrtc-blue);
+            box-shadow: 0 0 0 2px rgba(0,82,204,0.2);
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: #97a0af;
+        }
+
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #ffffff;
+        }
+
+        .radio-item:hover {
+            border-color: var(--nwkrtc-blue);
+            background-color: #f4f5f7;
+        }
+
+        .radio-item input[type="radio"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .radio-item input[type="radio"]:checked {
+            border-color: var(--nwkrtc-blue);
+            background-color: var(--nwkrtc-blue);
+        }
+
+        .radio-item input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0.5rem;
+            height: 0.5rem;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .radio-item label {
+            font-size: 1rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        select.form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2342526e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.25rem;
+            padding-right: 2.5rem;
+        }
+
+        .rating-container {
+            margin-bottom: 2rem;
+        }
+
+        .rating-label {
+            display: block;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            padding: 1.5rem;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(9, 30, 66, 0.1);
+        }
+
+        .rating-stars label {
+            font-size: 2.5rem;
+            color: #dfe1e6;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .rating-stars label:hover {
+            transform: scale(1.15);
+            color: var(--nwkrtc-yellow);
+        }
+
+        .rating-stars input[type="radio"]:checked ~ label {
+            color: var(--nwkrtc-yellow);
         }
 
         .verify-button {
             background: var(--nwkrtc-blue);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.875rem 1.5rem;
             border-radius: 8px;
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,82,204,0.2);
         }
 
         .verify-button:hover {
-            background: #005c91;
+            background: #0747a6;
             transform: translateY(-1px);
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: #344767;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-control, .form-select {
-            padding: 0.75rem;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: var(--nwkrtc-blue);
-            box-shadow: 0 0 0 0.25rem rgba(0,119,190,0.25);
-        }
-
-        .rating-stars {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin: 1rem 0;
-        }
-
-        .rating-stars input[type="radio"] {
-            display: none;
-        }
-
-        .rating-stars label {
-            font-size: 2rem;
-            color: #e4e5e9;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .rating-stars input[type="radio"]:checked ~ label,
-        .rating-stars label:hover {
-            color: var(--nwkrtc-yellow);
+            box-shadow: 0 4px 8px rgba(0,82,204,0.3);
         }
 
         .submit-button {
             background: var(--nwkrtc-blue);
             color: white;
-            padding: 1rem;
+            padding: 1.25rem;
             width: 100%;
             border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            border-radius: 10px;
+            font-size: 1.125rem;
             font-weight: 500;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
+            margin-top: 2.5rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,82,204,0.2);
+            letter-spacing: 0.02em;
         }
 
         .submit-button:hover {
-            background: #005c91;
+            background: #0747a6;
             transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,82,204,0.3);
         }
 
         .verification-status {
             margin-top: 1rem;
-            padding: 1rem;
+            padding: 1rem 1.25rem;
             border-radius: 8px;
             font-weight: 500;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
         }
 
         .verification-success {
-            background: #d1fae5;
-            color: #065f46;
+            background: #e3fcef;
+            color: var(--success);
+            border-color: #00875a;
         }
 
         .verification-error {
-            background: #fee2e2;
-            color: #991b1b;
+            background: #ffebe6;
+            color: var(--error);
+            border-color: #de350b;
         }
 
         .verification-pending {
-            background: #fef3c7;
-            color: #92400e;
+            background: #fffae6;
+            color: var(--warning);
+            border-color: #ff991f;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+            padding: 1rem;
         }
 
         footer {
-            background: #344767;
+            background: #091e42;
             color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
+            padding: 3rem 0;
+            margin-top: 4rem;
         }
 
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
+            padding: 0 1.5rem;
+        }
+
+        .footer-content p {
+            margin: 0.75rem 0;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95rem;
         }
 
         @media (max-width: 768px) {
+            .banner {
+                height: 260px;
+                margin-bottom: 40px;
+            }
+
             .card {
-                margin: -30px 1rem 2rem;
+                margin: -40px 1rem 2rem;
                 padding: 1.5rem;
             }
 
-            .banner {
-                height: 150px;
+            .card h2 {
+                font-size: 1.75rem;
+                margin-bottom: 1.25rem;
             }
 
-            .banner-text {
-                font-size: 1.5rem;
+            .card h4 {
+                font-size: 1.25rem;
+                margin-bottom: 2rem;
             }
 
-            .email-input-group {
-                flex-direction: column;
+            .verification-section {
+                padding: 1.5rem;
             }
 
-            .verify-button {
-                width: 100%;
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .radio-group {
+                grid-template-columns: 1fr;
+            }
+
+            .rating-stars {
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .rating-stars label {
+                font-size: 2rem;
+            }
+
+            .submit-button {
+                padding: 1rem;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="logo-container">
-                <img src="https://raw.githubusercontent.com/Abhay9611/NWKRTC_Feedback/main/assets/logo.png" alt="NWKRTC Logo" class="logo">
-                <div class="logo-text">
-                    <h1>ವಾಯುವ್ಯ ಕರ್ನಾಟಕ ರಸ್ತೆ ಸಾರಿಗೆ ಸಂಸ್ಥೆ</h1>
-                    <p>North Western Karnataka Road Transport Corporation</p>
-                </div>
-            </div>
-            <img src="https://raw.githubusercontent.com/Abhay9611/NWKRTC_Feedback/main/assets/75-years.png" alt="75 Years Logo" class="logo">
-        </div>
-    </header>
+   
 
     <div class="banner">
-        <div class="banner-overlay">
-            <div class="banner-text">ನಮ್ಮ ಬಸ್ ನಿಲ್ದಾಣ, ಸ್ವಚ್ಛ ನಿಲ್ದಾಣ</div>
-            <div class="banner-text">Our Bus Station, Clean Station</div>
-        </div>
+        <img src="img.jpg" alt="NWKRTC Bus Station" class="banner-image">
+        
     </div>
 
     <div class="card">
@@ -307,86 +489,106 @@
                 </div>
             </div>
 
-            <div id="formFields" style="display: none;">
-                <label for="name">Name / ಹೆಸರು *</label>
-                <input type="text" name="name" id="name" required />
+            <div id="formFields">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name / ಹೆಸರು *</label>
+                    <input type="text" name="name" id="name" class="form-control" required />
+                </div>
 
-                <label>Gender / ಲಿಂಗ *</label>
-                <div class="radio-group">
-                    <div class="radio-item">
-                        <input type="radio" name="gender" value="male" id="male" required />
-                        <label for="male">Male / ಗಂಡು</label>
-                    </div>
-                    <div class="radio-item">
-                        <input type="radio" name="gender" value="female" id="female" />
-                        <label for="female">Female / ಹೆಣ್ಣು</label>
+                <div class="form-group">
+                    <label class="form-label">Gender / ಲಿಂಗ *</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="gender" value="male" id="male" required />
+                            <label for="male">Male / ಗಂಡು</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="gender" value="female" id="female" />
+                            <label for="female">Female / ಹೆಣ್ಣು</label>
+                        </div>
                     </div>
                 </div>
 
-                <label for="phone">Phone No / ದೂರವಾಣಿ ಸಂಖ್ಯೆ (Optional)</label>
-                <input type="tel" name="phone" id="phone" />
-
-                <label for="toiletCleanliness">Toilet Cleanliness / ಶೌಚಾಲಯದ ಸ್ವಚ್ಛತೆ *</label>
-                <select name="toiletCleanliness" id="toiletCleanliness" required>
-                    <option value="">Select rating</option>
-                    <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
-                    <option value="poor">Poor/ಕಳಪೆ</option>
-                    <option value="average">Average/ಸಾಧಾರಣ</option>
-                    <option value="good">Good/ಉತ್ತಮ</option>
-                    <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
-                </select>
-
-                <label for="busStandCleanliness">Bus Stand Cleanliness / ಬಸ್‌ ನಿಲ್ದಾಣದ ಸ್ವಚ್ಛತೆ *</label>
-                <select name="busStandCleanliness" id="busStandCleanliness" required>
-                    <option value="">Select rating</option>
-                    <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
-                    <option value="poor">Poor/ಕಳಪೆ</option>
-                    <option value="average">Average/ಸಾಧಾರಣ</option>
-                    <option value="good">Good/ಉತ್ತಮ</option>
-                    <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
-                </select>
-
-                <label for="trafficControllerBehavior">Behavior of Traffic Controllers / ಸಂಚಾರ ನಿಯಂತ್ರಕರ ವರ್ತನೆ *</label>
-                <select name="trafficControllerBehavior" id="trafficControllerBehavior" required>
-                    <option value="">Select rating</option>
-                    <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
-                    <option value="poor">Poor/ಕಳಪೆ</option>
-                    <option value="average">Average/ಸಾಧಾರಣ</option>
-                    <option value="good">Good/ಉತ್ತಮ</option>
-                    <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
-                </select>
-
-                <label for="drinkingWater">Drinking Water Facility / ಕುಡಿಯುವ ನೀರಿನ ವ್ಯವಸ್ಥೆ *</label>
-                <select name="drinkingWater" id="drinkingWater" required>
-                    <option value="">Select option</option>
-                    <option value="not_available">Not Available / ಇರುವುದಿಲ್ಲ</option>
-                    <option value="unsatisfactory">Unsatisfactory / ಅತೃಪ್ತಿಕರ</option>
-                    <option value="satisfactory">Satisfactory / ತೃಪ್ತಿಕರ</option>
-                </select>
-
-                <label for="toiletFee">Fee Collected for Usage of Toilets / ಶೌಚಾಲಯ ಬಳಕೆಗೆ ಶುಲ್ಕ *</label>
-                <select name="toiletFee" id="toiletFee" required>
-                    <option value="">Select option</option>
-                    <option value="prescribed">Prescribed Fee (Rs. 5) / ನಿಗದಿತ ಶುಲ್ಕ</option>
-                    <option value="more">Charged More / ಹೆಚ್ಚಿನ ಶುಲ್ಕ</option>
-                </select>
-
-                <label>Overall Rating / ಒಟ್ಟಾರೆ ಶ್ರೇಣಿ *</label>
-                <div class="rating-stars">
-                    <input type="radio" name="overallRating" value="5" id="star5" required>
-                    <label for="star5"><i class="bi bi-star-fill"></i></label>
-                    <input type="radio" name="overallRating" value="4" id="star4">
-                    <label for="star4"><i class="bi bi-star-fill"></i></label>
-                    <input type="radio" name="overallRating" value="3" id="star3">
-                    <label for="star3"><i class="bi bi-star-fill"></i></label>
-                    <input type="radio" name="overallRating" value="2" id="star2">
-                    <label for="star2"><i class="bi bi-star-fill"></i></label>
-                    <input type="radio" name="overallRating" value="1" id="star1">
-                    <label for="star1"><i class="bi bi-star-fill"></i></label>
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone No / ದೂರವಾಣಿ ಸಂಖ್ಯೆ (Optional)</label>
+                    <input type="tel" name="phone" id="phone" class="form-control" />
                 </div>
 
-                <label for="otherComments">Other Comments / ಇತರೆ ಅನಿಸಿಕೆಗಳು (Optional)</label>
-                <textarea name="otherComments" id="otherComments" rows="4"></textarea>
+                <div class="form-group">
+                    <label for="toiletCleanliness" class="form-label">Toilet Cleanliness / ಶೌಚಾಲಯದ ಸ್ವಚ್ಛತೆ *</label>
+                    <select name="toiletCleanliness" id="toiletCleanliness" class="form-select" required>
+                        <option value="">Select rating</option>
+                        <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
+                        <option value="poor">Poor/ಕಳಪೆ</option>
+                        <option value="average">Average/ಸಾಧಾರಣ</option>
+                        <option value="good">Good/ಉತ್ತಮ</option>
+                        <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="busStandCleanliness" class="form-label">Bus Stand Cleanliness / ಬಸ್‌ ನಿಲ್ದಾಣದ ಸ್ವಚ್ಛತೆ *</label>
+                    <select name="busStandCleanliness" id="busStandCleanliness" class="form-select" required>
+                        <option value="">Select rating</option>
+                        <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
+                        <option value="poor">Poor/ಕಳಪೆ</option>
+                        <option value="average">Average/ಸಾಧಾರಣ</option>
+                        <option value="good">Good/ಉತ್ತಮ</option>
+                        <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trafficControllerBehavior" class="form-label">Behavior of Traffic Controllers / ಸಂಚಾರ ನಿಯಂತ್ರಕರ ವರ್ತನೆ *</label>
+                    <select name="trafficControllerBehavior" id="trafficControllerBehavior" class="form-select" required>
+                        <option value="">Select rating</option>
+                        <option value="very_poor">Very Poor/ಅತೀ ಕಳಪೆ</option>
+                        <option value="poor">Poor/ಕಳಪೆ</option>
+                        <option value="average">Average/ಸಾಧಾರಣ</option>
+                        <option value="good">Good/ಉತ್ತಮ</option>
+                        <option value="excellent">Excellent/ಅತ್ಯುತ್ತಮ</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="drinkingWater" class="form-label">Drinking Water Facility / ಕುಡಿಯುವ ನೀರಿನ ವ್ಯವಸ್ಥೆ *</label>
+                    <select name="drinkingWater" id="drinkingWater" class="form-select" required>
+                        <option value="">Select option</option>
+                        <option value="not_available">Not Available / ಇರುವುದಿಲ್ಲ</option>
+                        <option value="unsatisfactory">Unsatisfactory / ಅತೃಪ್ತಿಕರ</option>
+                        <option value="satisfactory">Satisfactory / ತೃಪ್ತಿಕರ</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="toiletFee" class="form-label">Fee Collected for Usage of Toilets / ಶೌಚಾಲಯ ಬಳಕೆಗೆ ಶುಲ್ಕ *</label>
+                    <select name="toiletFee" id="toiletFee" class="form-select" required>
+                        <option value="">Select option</option>
+                        <option value="prescribed">Prescribed Fee (Rs. 5) / ನಿಗದಿತ ಶುಲ್ಕ</option>
+                        <option value="more">Charged More / ಹೆಚ್ಚಿನ ಶುಲ್ಕ</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="rating-label">Overall Rating / ಒಟ್ಟಾರೆ ಶ್ರೇಣಿ *</label>
+                    <div class="rating-stars">
+                        <input type="radio" name="overallRating" value="1" id="star5" required>
+                        <label for="star1"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="overallRating" value="2" id="star4">
+                        <label for="star2"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="overallRating" value="3" id="star3">
+                        <label for="star3"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="overallRating" value="4" id="star2">
+                        <label for="star4"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="overallRating" value="5" id="star1">
+                        <label for="star5"><i class="bi bi-star-fill"></i></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="otherComments" class="form-label">Other Comments / ಇತರೆ ಅನಿಸಿಕೆಗಳು (Optional)</label>
+                    <textarea name="otherComments" id="otherComments" class="form-control" rows="4"></textarea>
+                </div>
             </div>
 
             <button type="submit" class="submit-button" id="submitBtn" style="display: none;">
