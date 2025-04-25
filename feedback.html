@@ -318,6 +318,8 @@
             border: 2px solid var(--border-color);
             box-shadow: 0 1px 3px rgba(9, 30, 66, 0.1);
             flex-wrap: wrap;
+            flex-direction: row-reverse;
+            
         }
 
         .rating-stars input[type="radio"] {
@@ -329,7 +331,6 @@
             color: #dfe1e6;
             cursor: pointer;
             transition: all 0.2s ease;
-            order: 1;
         }
 
         .rating-stars input[type="radio"]:checked ~ label {
@@ -834,16 +835,21 @@
                     <div class="rating-stars">
                         <input type="radio" name="overallRating" value="1" id="star1" required>
                         <label for="star1"><i class="bi bi-star-fill"></i></label>
+                
                         <input type="radio" name="overallRating" value="2" id="star2">
                         <label for="star2"><i class="bi bi-star-fill"></i></label>
+                
                         <input type="radio" name="overallRating" value="3" id="star3">
                         <label for="star3"><i class="bi bi-star-fill"></i></label>
+                
                         <input type="radio" name="overallRating" value="4" id="star4">
                         <label for="star4"><i class="bi bi-star-fill"></i></label>
+                
                         <input type="radio" name="overallRating" value="5" id="star5">
                         <label for="star5"><i class="bi bi-star-fill"></i></label>
                     </div>
                 </div>
+                
 
                 <div class="form-group">
                     <label for="otherComments" class="form-label">Other Comments / ಇತರೆ ಅನಿಸಿಕೆಗಳು (Optional)</label>
