@@ -83,12 +83,13 @@
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             aspect-ratio: 16/9;
+            background-color: #f0f0f0;
         }
 
         .banner-image {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             position: absolute;
             top: 0;
             left: 0;
@@ -309,9 +310,9 @@
 
         .rating-stars {
             display: flex;
-            gap: clamp(0.75rem, 2vw, 1.5rem);
+            gap: 1.5rem;
             justify-content: center;
-            padding: clamp(1rem, 2vw, 1.5rem);
+            padding: 1.5rem;
             background: #ffffff;
             border-radius: 12px;
             border: 2px solid var(--border-color);
@@ -319,19 +320,28 @@
             flex-wrap: wrap;
         }
 
+        .rating-stars input[type="radio"] {
+            display: none;
+        }
+
         .rating-stars label {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-size: 2.5rem;
             color: #dfe1e6;
             cursor: pointer;
             transition: all 0.2s ease;
+            order: -1;
         }
 
-        .rating-stars label:hover {
-            transform: scale(1.15);
+        .rating-stars label:hover,
+        .rating-stars label:hover ~ label {
             color: var(--nwkrtc-yellow);
         }
 
         .rating-stars input[type="radio"]:checked ~ label {
+            color: var(--nwkrtc-yellow);
+        }
+
+        .rating-stars input[type="radio"]:checked + label {
             color: var(--nwkrtc-yellow);
         }
 
@@ -460,8 +470,8 @@
             }
 
             .rating-stars {
-                padding: 1rem;
                 gap: 1rem;
+                padding: 1rem;
             }
 
             .rating-stars label {
@@ -561,12 +571,12 @@
             }
 
             .rating-stars {
+                gap: 0.75rem;
                 padding: 0.75rem;
-                gap: 0.5rem;
             }
 
             .rating-stars label {
-                font-size: 1.5rem;
+                font-size: 1.75rem;
             }
 
             .email-input-group {
@@ -713,7 +723,12 @@
 
     <div class="banner">
         <img src="img.jpg" alt="NWKRTC Bus Station" class="banner-image">
-        
+        <div class="banner-overlay">
+            <div class="banner-content">
+                <h1 class="banner-text">NWKRTC Feedback System</h1>
+                <p class="banner-subtext">Share your experience with us</p>
+            </div>
+        </div>
     </div>
 
     <div class="card">
@@ -826,16 +841,16 @@
                 <div class="form-group">
                     <label class="rating-label">Overall Rating / ಒಟ್ಟಾರೆ ಶ್ರೇಣಿ *</label>
                     <div class="rating-stars">
-                        <input type="radio" name="overallRating" value="1" id="star1" required>
-                        <label for="star1"><i class="bi bi-star-fill"></i></label>
-                        <input type="radio" name="overallRating" value="2" id="star2">
-                        <label for="star2"><i class="bi bi-star-fill"></i></label>
-                        <input type="radio" name="overallRating" value="3" id="star3">
-                        <label for="star3"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="overallRating" value="5" id="star5" required>
+                        <label for="star5"><i class="bi bi-star-fill"></i></label>
                         <input type="radio" name="overallRating" value="4" id="star4">
                         <label for="star4"><i class="bi bi-star-fill"></i></label>
-                        <input type="radio" name="overallRating" value="5" id="star5">
-                        <label for="star5"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="overallRating" value="3" id="star3">
+                        <label for="star3"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="overallRating" value="2" id="star2">
+                        <label for="star2"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="overallRating" value="1" id="star1">
+                        <label for="star1"><i class="bi bi-star-fill"></i></label>
                     </div>
                 </div>
 
