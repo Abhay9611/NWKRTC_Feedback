@@ -149,7 +149,7 @@
 
         .card h2 {
             color: var(--text-primary);
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
             margin-bottom: 1.5rem;
             font-weight: 600;
             letter-spacing: -0.01em;
@@ -158,7 +158,7 @@
 
         .card h4 {
             color: var(--text-secondary);
-            font-size: 1.4rem;
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
             margin-bottom: 2.5rem;
             font-weight: 500;
             text-align: center;
@@ -166,50 +166,78 @@
 
         .verification-section {
             background: #ffffff;
-            padding: 2rem;
+            padding: clamp(1.5rem, 3vw, 2rem);
             border-radius: 12px;
             margin-bottom: 2.5rem;
             border: 1px solid var(--border-color);
             box-shadow: 0 1px 3px rgba(9, 30, 66, 0.1);
         }
 
-        .form-group {
-            margin-bottom: 2rem;
+        .email-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .form-label {
-            display: block;
+        .email-input-group input {
+            width: 100%;
+            padding: clamp(0.75rem, 2vw, 0.875rem) clamp(0.75rem, 2vw, 1rem);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .verification-code-group {
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .verification-code-group input {
+            width: 100%;
+            padding: clamp(0.75rem, 2vw, 0.875rem) clamp(0.75rem, 2vw, 1rem);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            letter-spacing: 0.5em;
+            text-align: center;
+        }
+
+        .verification-status {
+            margin-top: 1rem;
+            padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 2vw, 1.25rem);
+            border-radius: 8px;
             font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-            font-size: 0.95rem;
-            letter-spacing: 0.01em;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            border: 1px solid transparent;
+            display: none;
         }
 
         .form-control, .form-select {
             width: 100%;
-            padding: 0.875rem 1rem;
+            padding: clamp(0.75rem, 2vw, 0.875rem) clamp(0.75rem, 2vw, 1rem);
             border: 2px solid var(--border-color);
             border-radius: 8px;
             transition: all 0.2s ease;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
             color: var(--text-primary);
             background-color: #fff;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
 
-        .form-control:focus, .form-select:focus {
-            border-color: var(--nwkrtc-blue);
-            box-shadow: 0 0 0 2px rgba(0,82,204,0.2);
-            outline: none;
-        }
-
-        .form-control::placeholder {
-            color: #97a0af;
+        .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2342526e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.25rem;
+            padding-right: 2.5rem;
         }
 
         .radio-group {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             margin-bottom: 1.75rem;
         }
@@ -218,7 +246,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 1rem;
+            padding: clamp(0.75rem, 2vw, 1rem);
             border: 2px solid var(--border-color);
             border-radius: 8px;
             cursor: pointer;
@@ -268,15 +296,6 @@
             user-select: none;
         }
 
-        select.form-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2342526e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 1.25rem;
-            padding-right: 2.5rem;
-        }
-
         .rating-container {
             margin-bottom: 2rem;
         }
@@ -290,17 +309,18 @@
 
         .rating-stars {
             display: flex;
-            gap: 1.5rem;
+            gap: clamp(0.75rem, 2vw, 1.5rem);
             justify-content: center;
-            padding: 1.5rem;
+            padding: clamp(1rem, 2vw, 1.5rem);
             background: #ffffff;
             border-radius: 12px;
             border: 2px solid var(--border-color);
             box-shadow: 0 1px 3px rgba(9, 30, 66, 0.1);
+            flex-wrap: wrap;
         }
 
         .rating-stars label {
-            font-size: 2.5rem;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             color: #dfe1e6;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -319,12 +339,14 @@
             background: var(--nwkrtc-blue);
             color: white;
             border: none;
-            padding: 0.875rem 1.5rem;
+            padding: clamp(0.75rem, 2vw, 0.875rem) clamp(1rem, 2vw, 1.5rem);
             border-radius: 8px;
             font-weight: 500;
             transition: all 0.2s ease;
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,82,204,0.2);
+            width: 100%;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
 
         .verify-button:hover {
@@ -336,11 +358,11 @@
         .submit-button {
             background: var(--nwkrtc-blue);
             color: white;
-            padding: 1.25rem;
+            padding: clamp(1rem, 2vw, 1.25rem);
             width: 100%;
             border: none;
             border-radius: 10px;
-            font-size: 1.125rem;
+            font-size: clamp(1rem, 2vw, 1.125rem);
             font-weight: 500;
             margin-top: 2.5rem;
             transition: all 0.2s ease;
@@ -355,35 +377,8 @@
             box-shadow: 0 6px 16px rgba(0,82,204,0.3);
         }
 
-        .verification-status {
-            margin-top: 1rem;
-            padding: 1rem 1.25rem;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            border: 1px solid transparent;
-        }
-
-        .verification-success {
-            background: #e3fcef;
-            color: var(--success);
-            border-color: #00875a;
-        }
-
-        .verification-error {
-            background: #ffebe6;
-            color: var(--error);
-            border-color: #de350b;
-        }
-
-        .verification-pending {
-            background: #fffae6;
-            color: var(--warning);
-            border-color: #ff991f;
-        }
-
         textarea.form-control {
-            min-height: 120px;
+            min-height: clamp(100px, 20vh, 120px);
             resize: vertical;
             line-height: 1.6;
             padding: 1rem;
@@ -410,6 +405,11 @@
         }
 
         @media (max-width: 768px) {
+            .card {
+                margin: -40px 1rem 2rem;
+                padding: clamp(1.25rem, 3vw, 1.5rem);
+            }
+
             .banner {
                 min-height: 180px;
                 max-height: 260px;
@@ -424,23 +424,31 @@
                 padding: 0 0.5rem;
             }
 
-            .card {
-                margin: -40px 1rem 2rem;
-                padding: 1.5rem;
-            }
-
-            .card h2 {
-                font-size: 1.75rem;
-                margin-bottom: 1.25rem;
-            }
-
-            .card h4 {
-                font-size: 1.25rem;
-                margin-bottom: 2rem;
-            }
-
             .verification-section {
-                padding: 1.5rem;
+                padding: 1.25rem;
+            }
+
+            .email-input-group {
+                gap: 0.75rem;
+            }
+
+            .verification-code-group {
+                margin-top: 1.25rem;
+            }
+
+            .verification-code-group input {
+                letter-spacing: 0.3em;
+                font-size: 1.1rem;
+            }
+
+            .form-control, .form-select {
+                padding: 0.875rem 1rem;
+            }
+
+            .form-select {
+                background-position: right 0.75rem center;
+                background-size: 1rem;
+                padding-right: 2rem;
             }
 
             .form-group {
@@ -463,6 +471,106 @@
             .submit-button {
                 padding: 1rem;
                 font-size: 1rem;
+            }
+
+            .email-input-group {
+                flex-direction: column;
+            }
+
+            .verify-button {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            .verification-code-group {
+                margin-top: 1rem;
+            }
+
+            textarea.form-control {
+                min-height: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                margin: -30px 0.75rem 1.5rem;
+                padding: 1.25rem;
+            }
+
+            .banner {
+                min-height: 160px;
+                max-height: 220px;
+            }
+
+            .banner-text {
+                font-size: 1.5rem;
+            }
+
+            .banner-subtext {
+                font-size: 1rem;
+            }
+
+            .email-input-group {
+                gap: 0.5rem;
+            }
+
+            .verification-code-group {
+                margin-top: 1rem;
+            }
+
+            .verification-code-group input {
+                letter-spacing: 0.2em;
+                font-size: 1rem;
+                padding: 0.75rem;
+            }
+
+            .form-control, .form-select {
+                padding: 0.75rem;
+            }
+
+            .form-select {
+                background-position: right 0.5rem center;
+                padding-right: 1.75rem;
+            }
+
+            .verification-status {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            textarea.form-control {
+                min-height: 100px;
+                padding: 0.75rem;
+            }
+
+            .radio-item {
+                padding: 0.75rem;
+            }
+
+            .rating-stars label {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* Improve touch targets for mobile */
+        .radio-item, .rating-stars label {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .verify-button, .submit-button {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Prevent zoom on input focus for mobile */
+        @media (max-width: 768px) {
+            input, select, textarea {
+                font-size: 16px !important;
             }
         }
     </style>
